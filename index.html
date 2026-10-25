@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>나의 다이어리 스튜디오</title>
+<style>
+:root{--ink:#292820;--muted:#77756b;--paper:#fffef9;--line:#dce8ec;--accent:#b85f50;--soft:#f4eee3}
+*{box-sizing:border-box}body{margin:0;background:#f4f1e9;color:var(--ink);font-family:ui-rounded,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+header{padding:26px 18px 18px;text-align:center}header .eyebrow{font-size:12px;letter-spacing:.18em;color:var(--accent);font-weight:800}h1{font-size:clamp(25px,5vw,38px);margin:8px 0}header p{margin:0;color:var(--muted);font-size:14px}
+main{max-width:1120px;margin:auto;padding:0 16px 36px;display:grid;grid-template-columns:minmax(280px,370px) minmax(0,1fr);gap:18px;align-items:start}
+.panel{background:#fff;border:1px solid #e8e3d8;border-radius:18px;padding:18px;box-shadow:0 4px 16px #302b1808}
+h2{font-size:16px;margin:0 0 12px}label{display:block;font-size:13px;font-weight:700;margin:14px 0 7px}input[type=text],input[type=date],textarea{width:100%;border:1px solid #ddd9d0;border-radius:10px;padding:11px;font:inherit;background:#fffefb;color:var(--ink)}textarea{min-height:150px;resize:vertical;line-height:1.7}
+.hint{font-size:12px;line-height:1.55;color:var(--muted);margin:6px 0}.upload{border:1px dashed #c7bfb0;background:#fcfaf5;border-radius:12px;padding:13px}.upload input{width:100%;font-size:13px}
+.layouts{display:grid;grid-template-columns:1fr 1fr;gap:8px}.layout{border:1px solid #e1ddd4;border-radius:12px;background:#fff;padding:10px;text-align:left;cursor:pointer;color:var(--ink)}.layout[aria-pressed=true]{border:2px solid var(--accent);background:#fff8f5;padding:9px}.layout strong{display:block;font-size:13px;margin-bottom:5px}.layout small{display:block;color:var(--muted);font-size:11px;line-height:1.4}.mini{height:38px;display:flex;gap:4px;margin-bottom:6px}.mini span{display:block;border:1px solid #b7b0a2;border-radius:3px;background:#f4eee3}.mini.a span:first-child{width:58%}.mini.a span:last-child{flex:1;background:#e9d8ca}.mini.b{flex-direction:column}.mini.b span{height:12px}.mini.c span{flex:1}.mini.d span:first-child{flex:1}.mini.d span:last-child{width:35%;background:#e9d8ca}
+button{border:0;border-radius:11px;padding:12px 15px;background:var(--ink);color:white;font:inherit;font-weight:700;cursor:pointer}button:disabled{opacity:.45;cursor:wait}.primary{width:100%;margin-top:15px;background:var(--accent)}.secondary{background:#ece8df;color:var(--ink)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.status{font-size:12px;line-height:1.5;color:var(--muted);min-height:18px;margin-top:10px}
+.preview-panel{padding:14px;background:#e8e4db}.preview-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 2px 12px}.preview-head h2{margin:0}.preview-head span{font-size:11px;color:var(--muted)}
+.page{width:100%;max-width:620px;min-height:720px;margin:0 auto;background-color:var(--paper);background-image:linear-gradient(to right,transparent 0,transparent 27px,#f1d8d5 28px,transparent 29px),linear-gradient(to bottom,transparent 0,transparent 27px,var(--line) 28px,transparent 29px);background-size:100% 29px;box-shadow:0 4px 18px #25201512;padding:44px 30px 36px 46px;position:relative;overflow:hidden}
+.page:before{content:"";position:absolute;top:0;bottom:0;left:28px;width:1px;background:#e8c5c1}
+.date-line{font-size:12px;color:#8c8175;letter-spacing:.08em;margin-bottom:14px}.page h3{font-size:27px;line-height:1.25;margin:0 0 18px;white-space:pre-wrap;overflow-wrap:anywhere}.page-body{font-size:15px;line-height:29px;white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}.sticker{object-fit:contain;max-width:100%;max-height:300px;mix-blend-mode:multiply}.sticker-wrap{display:flex;justify-content:center;align-items:center;min-width:0}.page-layout{display:grid;gap:16px}.page.layout-a .content-grid{display:grid;grid-template-columns:1fr 43%;gap:14px;align-items:start}.page.layout-b .content-grid{display:flex;flex-direction:column}.page.layout-b .sticker{max-height:245px}.page.layout-c .content-grid{display:flex;flex-direction:column}.page.layout-c .sticker-wrap{order:-1;justify-content:flex-start}.page.layout-c .sticker{max-height:220px}.page.layout-d .content-grid{display:grid;grid-template-columns:1fr 36%;gap:10px;align-items:center}.page.layout-d .page-body{font-size:14px}.page.layout-d .sticker{max-height:230px}
+.empty{color:#a8a092;font-size:13px;text-align:center;padding:100px 10px}
+@media(max-width:780px){main{grid-template-columns:1fr}.page{min-height:620px;padding:38px 18px 28px 38px}.page:before{left:22px}.page.layout-a .content-grid,.page.layout-d .content-grid{grid-template-columns:minmax(0,1fr) 38%;gap:9px}.page h3{font-size:23px}.page-body{font-size:14px}.panel{padding:15px}}
+@media print{body{background:white}header,main>.panel:first-child,.preview-head,.actions{display:none!important}main{display:block;padding:0;max-width:none}.preview-panel{padding:0;background:white;border:0}.page{box-shadow:none;max-width:none;width:100%;min-height:95vh;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<header><div class="eyebrow">MY LITTLE DIARY</div><h1>나의 다이어리 스튜디오</h1><p>오늘의 기록과 사진으로, 나만의 작은 일기장을 만들어요.</p></header>
+<main>
+<section class="panel">
+<h2>오늘의 기록</h2>
+<label for="date">날짜</label><input id="date" type="date">
+<label for="title">오늘의 제목</label><input id="title" type="text" placeholder="예: 바람이 좋았던 오후">
+<label for="notes">일기 내용</label><textarea id="notes" placeholder="오늘 있었던 일을 편하게 적어 주세요. 원래 쓴 내용을 그대로 배치해요."></textarea><p class="hint">적어 준 내용을 임의로 늘리거나 새로운 일을 만들어 넣지 않아요.</p>
+<label for="photos">사진 추가</label><div class="upload"><input id="photos" type="file" accept="image/*" multiple><p class="hint">사진은 최대 4장까지 선택할 수 있어요. 사진을 낙서 스티커로 변환할 수 있습니다.</p></div>
+<label>페이지 레이아웃</label>
+<div class="layouts" role="group" aria-label="페이지 레이아웃">
+<button type="button" class="layout" data-layout="a" aria-pressed="true"><div class="mini a"><span></span><span></span></div><strong>01 · 기본형</strong><small>글 왼쪽, 큰 스티커 오른쪽</small></button>
+<button type="button" class="layout" data-layout="b" aria-pressed="false"><div class="mini b"><span></span><span></span><span></span></div><strong>02 · 사진 중심</strong><small>위쪽에 사진, 아래에 기록</small></button>
+<button type="button" class="layout" data-layout="c" aria-pressed="false"><div class="mini c"><span></span><span></span></div><strong>03 · 순간 모음</strong><small>스티커를 위쪽에 두고 기록</small></button>
+<button type="button" class="layout" data-layout="d" aria-pressed="false"><div class="mini d"><span></span><span></span></div><strong>04 · 여백형</strong><small>작은 스티커와 넉넉한 여백</small></button>
+</div>
+<button class="primary" id="convert">사진을 낙서 스티커로 만들기</button><div class="status" id="status" role="status"></div>
+<p class="hint">미리보기는 입력할 때마다 바뀝니다. 완성한 페이지는 인쇄 또는 PDF로 저장할 수 있어요.</p>
+</section>
+<section class="panel preview-panel">
+<div class="preview-head"><h2>페이지 미리보기</h2><span>GRAPH PAPER · A4 느낌</span></div>
+<article id="page" class="page layout-a">
+<div class="date-line" id="previewDate"></div><h3 id="previewTitle">오늘의 작은 기록</h3>
+<div class="content-grid"><div class="page-body" id="previewNotes">여기에 일기 내용이 표시돼요.</div><div class="sticker-wrap" id="stickers"><div class="empty">사진을 추가해 보세요 ✳</div></div></div>
+</article>
+<div class="actions"><button id="print" class="secondary">인쇄 / PDF 저장</button><button id="clear" class="secondary">내용 비우기</button></div>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+let layout="a", files=[], generated=[];
+const today=new Date();$("date").value=[today.getFullYear(),String(today.getMonth()+1).padStart(2,"0"),String(today.getDate()).padStart(2,"0")].join("-");
+function render(){const title=$("title").value.trim();$("previewTitle").textContent=title||"오늘의 작은 기록";$("previewNotes").textContent=$("notes").value||"여기에 일기 내용이 표시돼요.";const d=$("date").value;$("previewDate").textContent=d?d.replaceAll("-","."):"";$("page").className="page layout-"+layout;renderStickers()}
+function renderStickers(){const box=$("stickers");box.replaceChildren();const arr=generated.length?generated:files.map(f=>({url:URL.createObjectURL(f),temporary:true}));if(!arr.length){const empty=document.createElement("div");empty.className="empty";empty.textContent="사진을 추가해 보세요 ✳";box.append(empty);return}arr.slice(0,4).forEach(item=>{const img=document.createElement("img");img.className="sticker";img.alt="일기 사진 스티커";img.src=item.url;box.append(img)})}
+["title","notes","date"].forEach(id=>$(id).addEventListener("input",render));
+$("photos").addEventListener("change",e=>{files=Array.from(e.target.files||[]).slice(0,4);generated=[];if(e.target.files.length>4)$("status").textContent="사진은 우선 처음 4장만 사용해요.";render()});
+document.querySelectorAll("[data-layout]").forEach(btn=>btn.addEventListener("click",()=>{layout=btn.dataset.layout;document.querySelectorAll("[data-layout]").forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));render()}));
+function toJpeg(file){return new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>{const scale=Math.min(1,1200/Math.max(img.width,img.height));const canvas=document.createElement("canvas");canvas.width=Math.round(img.width*scale);canvas.height=Math.round(img.height*scale);canvas.getContext("2d").drawImage(img,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL("image/jpeg",.82).split(",")[1])};img.onerror=reject;img.src=URL.createObjectURL(file)})}
+$("convert").addEventListener("click",async()=>{if(!files.length){$("status").textContent="먼저 사진을 추가해 주세요.";return}const button=$("convert");button.disabled=true;generated=[];try{for(let i=0;i<files.length;i++){ $("status").textContent="사진 변환 중… "+(i+1)+"/"+files.length;const image=await toJpeg(files[i]);const response=await fetch("/api/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({image,mimeType:"image/jpeg"})});let payload;try{payload=await response.json()}catch{throw new Error("서버 응답을 읽지 못했어요. 배포 설정을 확인해 주세요.")}if(!response.ok)throw new Error(payload.error||"이미지 변환에 실패했어요.");generated.push({url:"data:"+(payload.mimeType||"image/jpeg")+";base64,"+payload.image});render()}$("status").textContent="완료! 낙서 스티커를 페이지에 배치했어요."}catch(err){$("status").textContent=err.message||"오류가 발생했어요. 잠시 후 다시 시도해 주세요."}finally{button.disabled=false;render()}});
+$("print").addEventListener("click",()=>window.print());
+$("clear").addEventListener("click",()=>{if(!confirm("일기 내용과 사진 선택을 비울까요?"))return;$("title").value="";$("notes").value="";$("photos").value="";files=[];generated=[];$("status").textContent="";render()});
+render();
+</script>
+</body></html>
